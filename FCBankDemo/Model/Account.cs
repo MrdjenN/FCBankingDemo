@@ -25,7 +25,6 @@ namespace FCBankDemo.Model
     public class Account
     {
         #region Properties
-        public Int64 Id { get; set; }
         /// <summary>
         /// Gets or sets the name of the account associated with this instance.
         /// </summary>

@@ -4,7 +4,6 @@ namespace FCBankDemo.DTO
 {
     public class AccountDTO
     {
-        public Int64 Id { get; set; }
         /// <summary>
         /// Gets or sets the name of the account associated with this instance.
         /// </summary>

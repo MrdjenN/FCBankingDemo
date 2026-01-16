@@ -46,7 +46,7 @@ namespace FCBankDemo.Handlers
             {
                 _logger.LogInformation("CreateAccountCommand: Account created successfully {@Cmd}.", cmd);
             }
-            return account.Adapt<AccountDTO>();
+            return newAccount.Adapt<AccountDTO>();
            
         }
     }
