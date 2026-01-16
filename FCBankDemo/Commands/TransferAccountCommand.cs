@@ -5,10 +5,10 @@ namespace FCBankDemo.Commands
 {
     public class TransferAccountCommand : IRequest<bool>
     {
-        public TransferAccountDTO Account { get; set; } = new TransferAccountDTO();
-        public TransferAccountCommand(TransferAccountDTO account)
+        public TransferAccountDTO TransferRequest { get; set; } = new TransferAccountDTO();
+        public TransferAccountCommand(TransferAccountDTO transferRequest)
         {
-            Account = account;
+            TransferRequest = transferRequest;
         }
     }
 }

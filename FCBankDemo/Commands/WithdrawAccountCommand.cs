@@ -6,10 +6,10 @@ namespace FCBankDemo.Commands
 {
     public class WithdrawAccountCommand : IRequest<AccountDTO>
     {
-        public WithdrawAccountDTO Account { get; set; } = new WithdrawAccountDTO();
-        public WithdrawAccountCommand(WithdrawAccountDTO account)
+        public WithdrawAccountDTO WithdrawRequest { get; set; } = new WithdrawAccountDTO();
+        public WithdrawAccountCommand(WithdrawAccountDTO withdrawRequest)
         {
-            Account = account;
+            WithdrawRequest = withdrawRequest;
         }
     }
 }

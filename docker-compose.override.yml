@@ -3,10 +3,10 @@ version: "3.9"
 services:
   api:
     ports:
-      - "5000:8080"  # fiksni host port za Swagger
+      - "5000:8080"  # host port za swwagger
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: "http://0.0.0.0:8080"
       ConnectionStrings__DefaultConnection: "Host=host.docker.internal;Port=5432;Database=bankingDb;Username=bankingUser;Password=123"
     volumes:
-      - ./FCBankDemo:/app  # opcionalno, za live reload
+      - ./FCBankDemo:/app  

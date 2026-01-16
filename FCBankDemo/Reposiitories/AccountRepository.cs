@@ -15,11 +15,6 @@ namespace FCBankDemo.Reposiitories
             return _context.Set<Account>().Add(account).Entity;
         }
 
-        public void Add(List<Account> accounts)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<int> SaveAsync(CancellationToken cancellationToken)
         {
             return await _context.SaveChangesAsync(cancellationToken);
@@ -27,7 +22,7 @@ namespace FCBankDemo.Reposiitories
 
         public Account Update(Account account)
         {
-            throw new NotImplementedException();
+            return _context.Set<Account>().Update(account).Entity;
         }
     }
 }

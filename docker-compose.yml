@@ -1,7 +1,7 @@
 services:
   api:
     build:
-      context: ./FCBankDemo   # folder gde se nalazi Dockerfile
+      context: ./FCBankDemo   
       dockerfile: Dockerfile
     container_name: banking-api
     ports:

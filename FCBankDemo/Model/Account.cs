@@ -84,6 +84,14 @@ namespace FCBankDemo.Model
             UpdatedAt = CreatedAt;
         }
 
+        public bool SetBalance(decimal amount)
+        {
+            Balance = amount;
+            UpdatedAt = DateTime.UtcNow;
+            return true;
+            // can add logs here...
+        }
+
     }
 
 }
