@@ -25,5 +25,29 @@ namespace FCBankDemo.Controllers
             return await _mediator.Send(new CreateAccountCommand(account));
         }
 
+        [HttpPost("Deposit")]
+        public async Task<AccountDTO> Deposit(DepositAccountDTO account)
+        {
+            return await _mediator.Send(new DepositCommand(account));
+        }
+
+        [HttpPost("Withdraw")]
+        public async Task<AccountDTO> Withdraw(WithdrawAccountDTO account)
+        {
+            return await _mediator.Send(new WithdrawAccountCommand(account));
+        }
+
+        [HttpPost("Transfer")]
+        public async Task<bool> Transfer(TransferAccountDTO account)
+        {
+            return await _mediator.Send(new TransferAccountCommand(account));
+        }
+
+        [HttpPost("Balance")]
+        public async Task<decimal> Balance(string accountNumber)
+        {
+            return await _mediator.Send(new GetAccountBallanceCommand(accountNumber));
+        }
+
     }
 }
