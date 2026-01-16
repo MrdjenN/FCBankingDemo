@@ -1,4 +1,7 @@
+using FCBankDemo.Commands;
+using FCBankDemo.DTO;
 using FCBankDemo.Model;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,10 +11,18 @@ namespace FCBankDemo.Controllers
     [Route("Accounts")]
     public class AccountController : ControllerBase
     {
-        [HttpPost("Create")]
-        public async Task<bool> CreateAccount()
+        private readonly IMediator _mediator;
+
+        public AccountController(IMediator mediator)
         {
-            return await Task.FromResult(true);
+            _mediator = mediator;
+        }
+
+
+        [HttpPost("Create")]
+        public async Task<AccountDTO> CreateAccount(CreateAccountDTO account)
+        {
+            return await _mediator.Send(new CreateAccountCommand(account));
         }
 
     }

@@ -20,20 +20,20 @@ namespace FCBankDemo.Model
         Disabled,
         Archived
     }
-    //[Index(nameof(AccountNumber), IsUnique = true)]
-    [PrimaryKey(nameof(Id))]
+    [Index(nameof(AccountNumber), IsUnique = true)]
+    [PrimaryKey(nameof(AccountNumber))]
     public class Account
     {
         #region Properties
         public Int64 Id { get; set; }
         /// <summary>
-        /// Account owner identifier.
+        /// Gets or sets the name of the account associated with this instance.
         /// </summary>
-        public long UserId { get; private set; }
+        public string AccountName { get; private set; } = string.Empty;
         /// <summary>
-        /// The account owner full name.
+        /// Gets or sets the unique identifier for the client.
         /// </summary>
-        public string UserFullName { get; private set; }
+        public string ClientId { get; private set; } = string.Empty;
         /// <summary>
         /// The account status.
         /// </summary>
@@ -58,11 +58,33 @@ namespace FCBankDemo.Model
         /// The last update time.
         /// </summary>
         public DateTime UpdatedAt { get; private set; }
+
         //todo
-        //      /// <summary>
+        /// <summary>
         ///// ReservedBallance todo????
         ///// </summary>
         //public decimal ReservedBallance { get; private set; }
         #endregion Properties
+
+        public Account()
+        {
+            AccountName = string.Empty;
+            ClientId = string.Empty;
+            AccountNumber = string.Empty;
+        }
+
+        public Account(string accountName, string clientId, AccountStatus status, Currency currency, decimal balance, string accountNumber)
+        {
+            AccountName = accountName;
+            ClientId = clientId;
+            Status = status;
+            Currency = currency;
+            Balance = balance;
+            AccountNumber = accountNumber;
+            CreatedAt = DateTime.UtcNow;
+            UpdatedAt = CreatedAt;
+        }
+
     }
+
 }

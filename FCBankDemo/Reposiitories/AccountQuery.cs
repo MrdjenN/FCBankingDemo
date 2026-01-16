@@ -1,4 +1,5 @@
-﻿using FCBankDemo.Model;
+﻿using FCBankDemo.Migrations;
+using FCBankDemo.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace FCBankDemo.Reposiitories
@@ -12,14 +13,10 @@ namespace FCBankDemo.Reposiitories
             _context = context;
         }
 
-        public Task<List<Account>> GetAccounts(IList<string> accountIds)
+        public async Task<Account?> GetccountByAccountNumber(string accountNumber)
         {
-            return _context.Accounts.Where(x => accountIds.Contains(x.AccountNumber)).ToListAsync();
+            return _context.Accounts.Where(x => x.AccountNumber == accountNumber).FirstOrDefault();
         }
 
-        public Task<List<Account>> GetAllAccounts()
-        {
-            return _context.Accounts.ToListAsync();
-        }
     }
 }

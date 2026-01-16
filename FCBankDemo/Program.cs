@@ -2,6 +2,9 @@ using Autofac;
 using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using FCBankDemo;
+using FCBankDemo.Commands;
+using FCBankDemo.DTO;
+using FCBankDemo.Handlers;
 using FCBankDemo.Model;
 using MediatR;
 using Microsoft.AspNetCore.Hosting;
@@ -42,27 +45,10 @@ builder.Services.AddSwaggerGen(opt =>
         BearerFormat = "JWT",
         Scheme = "bearer"
     });
-
-    //opt.AddSecurityRequirement(new OpenApiSecurityRequirement
-    //{
-    //    {
-    //        new OpenApiSecurityScheme
-    //        {
-    //            Reference = new OpenApiReference
-    //            {
-    //                Type=ReferenceType.SecurityScheme,
-    //                Id="Bearer"
-    //            }
-    //        },
-    //        new string[]{}
-    //    }
-    //});
-    //var filePath = Path.Combine(AppContext.BaseDirectory, "configapi.xml");
-    //opt.IncludeXmlComments(filePath);
 });
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly: typeof(Program).Assembly));
-//builder.Services.AddScoped<IRequestHandler<GetAllAccountsCommand, List<AccountDTO>>, GetAllAccountsCommandHandler>();
+builder.Services.AddScoped<IRequestHandler<CreateAccountCommand, AccountDTO>, CreateAccountCommandHandler>();
 builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new ApplicationModule()));
 
 var app = builder.Build();
