@@ -28,7 +28,7 @@ namespace FCBankDemo.Controllers
         [HttpPost("Deposit")]
         public async Task<AccountDTO> Deposit(DepositAccountDTO account)
         {
-            return await _mediator.Send(new DepositCommand(account));
+            return await _mediator.Send(new DepositAccountCommand(account));
         }
 
         [HttpPost("Withdraw")]

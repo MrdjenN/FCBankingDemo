@@ -27,7 +27,7 @@ namespace FCBankDemo.DTO
         /// <summary>
 		/// The account number.
 		/// </summary>
-		public string AccountNumber { get; set; }
+		public string AccountNumber { get; set; }= string.Empty;
         /// <summary>
 		/// The account creation time.
 		/// </summary>
