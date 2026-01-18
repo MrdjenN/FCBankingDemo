@@ -1,4 +1,5 @@
 using FCBankDemo.Commands;
+using FCBankDemo.Common;
 using FCBankDemo.DTO;
 using FCBankDemo.Model;
 using MediatR;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FCBankDemo.Controllers
 {
+    //[Authorize]
     [ApiController]
     [Route("Accounts")]
     public class AccountController : ControllerBase
@@ -18,36 +20,54 @@ namespace FCBankDemo.Controllers
             _mediator = mediator;
         }
 
-
         [HttpPost("Create")]
-        public async Task<AccountDTO> CreateAccount(CreateAccountDTO account)
+        public async Task<ActionResult<AccountDTO>> CreateAccount(CreateAccountDTO account)
         {
-            return await _mediator.Send(new CreateAccountCommand(account));
+            var result = await _mediator.Send(new CreateAccountCommand(account));
+            if (!result.IsSuccess)
+                return BadRequest(new { error = result.Error });
+
+            return Ok(result.Data);
         }
 
         [HttpPost("Deposit")]
-        public async Task<AccountDTO> Deposit(DepositAccountDTO account)
+        public async Task<ActionResult<AccountDTO>> Deposit(DepositAccountDTO account)
         {
-            return await _mediator.Send(new DepositAccountCommand(account));
+            var result = await _mediator.Send(new DepositAccountCommand(account));
+            if (!result.IsSuccess)
+                return BadRequest(new { error = result.Error });
+
+            return Ok(result.Data);
         }
 
         [HttpPost("Withdraw")]
-        public async Task<AccountDTO> Withdraw(WithdrawAccountDTO account)
+        public async Task<ActionResult<AccountDTO>> Withdraw(WithdrawAccountDTO account)
         {
-            return await _mediator.Send(new WithdrawAccountCommand(account));
+            var result = await _mediator.Send(new WithdrawAccountCommand(account));
+            if (!result.IsSuccess)
+                return BadRequest(new { error = result.Error });
+
+            return Ok(result.Data);
         }
 
         [HttpPost("Transfer")]
-        public async Task<bool> Transfer(TransferAccountDTO account)
+        public async Task<ActionResult<bool>> Transfer(TransferAccountDTO account)
         {
-            return await _mediator.Send(new TransferAccountCommand(account));
+            var result = await _mediator.Send(new TransferAccountCommand(account));
+            if (!result.IsSuccess)
+                return BadRequest(new { error = result.Error });
+
+            return Ok(result.Data);
         }
 
         [HttpPost("Balance")]
-        public async Task<decimal> Balance(string accountNumber)
+        public async Task<ActionResult<decimal>> Balance(string accountNumber)
         {
-            return await _mediator.Send(new GetAccountBallanceCommand(accountNumber));
-        }
+            var result = await _mediator.Send(new GetAccountBallanceCommand(accountNumber));
+            if (!result.IsSuccess)
+                return BadRequest(new { error = result.Error });
 
+            return Ok(result.Data);
+        }
     }
 }

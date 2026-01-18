@@ -3,10 +3,13 @@ using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using FCBankDemo;
 using FCBankDemo.Commands;
+using FCBankDemo.Common;
 using FCBankDemo.DTO;
 using FCBankDemo.Handlers;
 using FCBankDemo.Model;
+using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Microsoft.EntityFrameworkCore;
@@ -26,7 +29,6 @@ builder.Services.AddDbContext<BankingDBContext>(options =>
     options.UseNpgsql(connectionString,
         npgsqlOptionsAction: sqlOptions =>
         {
-            //sqlOptions.MigrationsAssembly(typeof(Program).GetTypeInfo().Assembly.GetName().Name);
             sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorCodesToAdd: null);
         });
     },
@@ -48,7 +50,7 @@ builder.Services.AddSwaggerGen(opt =>
 });
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(assembly: typeof(Program).Assembly));
-builder.Services.AddScoped<IRequestHandler<CreateAccountCommand, AccountDTO>, CreateAccountCommandHandler>();
+builder.Services.AddScoped<IRequestHandler<CreateAccountCommand, Result<AccountDTO>>, CreateAccountCommandHandler>();
 builder.Host.ConfigureContainer<ContainerBuilder>(builder => builder.RegisterModule(new ApplicationModule()));
 
 var app = builder.Build();
