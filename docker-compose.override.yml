@@ -3,7 +3,7 @@ version: "3.9"
 services:
   api:
     ports:
-      - "5000:8080"  # host port za swwagger
+      - "5000:8080"  #swagre
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ASPNETCORE_URLS: "http://0.0.0.0:8080"
