@@ -1,4 +1,5 @@
 using FCBankDemo.Commands;
+using FCBankDemo.DTO;
 using FCBankDemo.Reposiitories;
 using FluentValidation;
 using MediatR;
@@ -8,19 +9,23 @@ namespace FCBankDemo.Handlers
     public class GetAccountBallanceCommandHandler : IRequestHandler<GetAccountBallanceCommand, decimal>
     {
         private readonly ILogger<GetAccountBallanceCommandHandler> _logger;
-        private readonly IAccountRepository _accountRepository;
+        private readonly IAccountQuery _accountQuery;
 
-        public GetAccountBallanceCommandHandler(ILogger<GetAccountBallanceCommandHandler> logger, IAccountRepository accountRepository)
+        public GetAccountBallanceCommandHandler(ILogger<GetAccountBallanceCommandHandler> logger, IAccountQuery accountQuery)
         {
             _logger = logger;
-            _accountRepository = accountRepository;
+            _accountQuery = accountQuery;
         }
 
         public async Task<decimal> Handle(GetAccountBallanceCommand cmd, CancellationToken cancellationToken)
         {
             _logger.LogInformation("GetAccountBallanceCommand: Cmd = {@Cmd}.", cmd);
-            
-            return 0;
+            var account = await _accountQuery.GetccountByAccountNumber(cmd.AccountNumber);
+            if (account == null)
+                return 0;
+
+            return account.Balance;
+
         }
     }
 

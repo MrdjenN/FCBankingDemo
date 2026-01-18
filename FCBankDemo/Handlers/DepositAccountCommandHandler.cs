@@ -23,11 +23,11 @@ namespace FCBankDemo.Handlers
         {
             _logger.LogInformation("DepositAccountCommand: Cmd = {@Cmd}.", cmd);
 
-            var account = await _accountRepository.GetccountByAccountNumber(cmd.Deposit.AccountNumber);
+            var account = await _accountRepository.GetccountByAccountNumber(cmd.DepositRequest.AccountNumber);
             if (account == null)
                 return new AccountDTO(); // todo: handle account not found -for simplicity
 
-            if (account.SetBalance(account.Balance + cmd.Deposit.Amount))
+            if (account.SetBalance(account.Balance + cmd.DepositRequest.Amount))
             {
                 _accountRepository.Update(account);
                 var res = await _accountRepository.SaveAsync(cancellationToken);
@@ -44,8 +44,8 @@ namespace FCBankDemo.Handlers
     {
         public DepositAccountCommandValidator(ILogger<DepositAccountCommandValidator> logger)
         {
-            RuleFor(x => x.Deposit.Amount).GreaterThan(0).WithMessage("Deposit amount must be greater than zero.");
-            RuleFor(x => x.Deposit.AccountNumber).NotEmpty().WithMessage("Account number must be provided.");
+            RuleFor(x => x.DepositRequest.Amount).GreaterThan(0).WithMessage("Deposit amount must be greater than zero.");
+            RuleFor(x => x.DepositRequest.AccountNumber).NotEmpty().WithMessage("Account number must be provided.");
             logger.LogTrace("Validator created - {@Name}", GetType().Name);
         }
     }

@@ -5,10 +5,10 @@ namespace FCBankDemo.Commands
 {
     public class CreateAccountCommand : IRequest<AccountDTO>
     {
-        public CreateAccountDTO Account { get; set; } = new CreateAccountDTO();
+        public CreateAccountDTO AccountRequest { get; set; } = new CreateAccountDTO();
         public CreateAccountCommand(CreateAccountDTO account)
         {
-            Account = account;
+            AccountRequest = account;
         }
     }
 }

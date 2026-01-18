@@ -25,13 +25,13 @@ namespace FCBankDemo.Handlers
 
 
             // check if already exists
-            var account = await _accountRepository.GetccountByAccountNumber(cmd.Account.AccountNumber);
+            var account = await _accountRepository.GetccountByAccountNumber(cmd.AccountRequest.AccountNumber);
             if (account != null) 
                 return new AccountDTO(); // TODO: return error code: Account already exists
 
 
             //create
-            Account newAccount = new Account(cmd.Account.AccountName,cmd.Account.ClientId, AccountStatus.Active, (Currency)cmd.Account.Currency, cmd.Account.InitialDeposit, cmd.Account.AccountNumber);
+            Account newAccount = new Account(cmd.AccountRequest.AccountName,cmd.AccountRequest.ClientId, AccountStatus.Active, (Currency)cmd.AccountRequest.Currency, cmd.AccountRequest.InitialDeposit, cmd.AccountRequest.AccountNumber);
             var resAcc = _accountRepository.Add(newAccount);
 
 
@@ -55,8 +55,8 @@ namespace FCBankDemo.Handlers
     {
         public CreateAccountCommandValidator(ILogger<CreateAccountCommandValidator> logger)
         {
-            RuleFor(command => command.Account.AccountNumber).NotEmpty();
-            RuleFor(command => command.Account.Currency).NotEmpty();
+            RuleFor(command => command.AccountRequest.AccountNumber).NotEmpty();
+            RuleFor(command => command.AccountRequest.Currency).NotEmpty();
             logger.LogTrace("Validator created - {@Name}", GetType().Name);
         }
     }
